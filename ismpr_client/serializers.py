@@ -9,6 +9,11 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('id','username', 'first_name', 'last_name', 'email', 'password')
 
+    def create(self, validated_data):
+        new_user = User.objects.create(**validated_data)
+        Client.objects.create(user=new_user)
+        return new_user
+
 
 class AuthUserSerializer(serializers.ModelSerializer):
 

@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from client_ismpr.urls import user_urlpatterns
+from ismpr_client.urls import user_urlpatterns
 
 urlpatterns = [
     path('admin/', admin.site.urls),

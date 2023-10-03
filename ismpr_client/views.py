@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User
+from rest_framework.viewsets import ModelViewSet
+
 from .models import ClientEquipment
-from rest_framework.generics import CreateAPIView, ListAPIView, UpdateAPIView, DestroyAPIView
+from rest_framework.generics import CreateAPIView, ListAPIView
 from rest_framework.response import Response
 
 from .serializers import UserSerializer, AuthUserSerializer, ClientEquipmentSerializer
@@ -19,6 +21,6 @@ class AuthUserView(CreateAPIView):
         return Response("OK") # TODO: Реализовать получение Token
 
 
-class EquipmentClientView(ListAPIView, CreateAPIView):
+class EquipmentClientViewSet(ModelViewSet):
     queryset = ClientEquipment.objects.all()
     serializer_class = ClientEquipmentSerializer
