@@ -8,17 +8,6 @@ class Client(models.Model):
     Phone = models.CharField(max_length=12)
 
 
-# @receiver(post_save, sender=User)
-# def create_user_profile(sender, instance, created, **kwargs):
-#     if created:
-#         Client.objects.create(user=instance)
-#
-#
-# @receiver(post_save, sender=User)
-# def save_user_profile(sender, instance, **kwargs):
-#     instance.client.save()
-
-
 class TypeEquipment(models.Model):
     type = models.CharField(max_length=50)
     description = models.TextField()
