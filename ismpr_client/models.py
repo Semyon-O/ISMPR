@@ -7,16 +7,12 @@ class Client(models.Model):
     Address = models.TextField()
     Phone = models.CharField(max_length=12)
 
+    class Meta:
+        verbose_name = 'Клиент'
+        verbose_name_plural = 'Клиенты'
 
-# @receiver(post_save, sender=User)
-# def create_user_profile(sender, instance, created, **kwargs):
-#     if created:
-#         Client.objects.create(user=instance)
-#
-#
-# @receiver(post_save, sender=User)
-# def save_user_profile(sender, instance, **kwargs):
-#     instance.client.save()
+    def __str__(self):
+        return f"{self.user}"
 
 
 class TypeEquipment(models.Model):
@@ -25,6 +21,10 @@ class TypeEquipment(models.Model):
 
     def __str__(self):
         return f'{self.type.__str__()}'
+
+    class Meta:
+        verbose_name = 'Тип оборудования'
+        verbose_name_plural = 'Типы оборудования'
 
 
 class ClientEquipment(models.Model):
@@ -37,14 +37,7 @@ class ClientEquipment(models.Model):
     def __str__(self):
         return f"{self.pk}: {self.client.__str__()} - {self.Name.__str__()}"
 
-
-class WorkerStatus(models.Model):
-    status = models.CharField(max_length=50)
-
-
-class Worker(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="worker")
-    Phone = models.CharField(max_length=12)
-    workerStatus = models.ForeignKey(WorkerStatus, on_delete=models.CASCADE, related_name="worker")
-    Company = models.CharField(max_length=255)
+    class Meta:
+        verbose_name = 'Оборудование Клиента'
+        verbose_name_plural = 'Оборудование Клиентов'
 

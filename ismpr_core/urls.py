@@ -18,9 +18,13 @@ from django.contrib import admin
 from django.urls import path, include
 
 from ismpr_client.urls import user_urlpatterns
+from ismpr_worker.urls import worker_urlpatterns
+from ismpr_orders.urls import orders_urlpatterns
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    path('client/', include(user_urlpatterns))
+    path('client/', include(user_urlpatterns)),
+    path('worker/', include(worker_urlpatterns)),
+    path('', include(orders_urlpatterns))
 ]
