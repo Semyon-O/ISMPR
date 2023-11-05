@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import Client, ClientEquipment
+from rest_framework.authtoken.models import Token
+from .models import Client, ClientEquipment, TypeEquipment
 from django.contrib.auth.models import User
 
 
@@ -15,6 +16,7 @@ class UserSerializer(serializers.ModelSerializer):
         new_user.set_password(password)
         new_user.save()
         Client.objects.create(user=new_user)
+        Token.objects.create(user=new_user)
         return new_user
 
 
@@ -29,4 +31,11 @@ class ClientEquipmentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ClientEquipment
-        fields = ('client', 'Name', 'typeEquipment', 'Company', 'Description')
+        fields = ('id', 'Name', 'typeEquipment', 'Company', 'Description')
+
+
+class TypeEquipmentSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = TypeEquipment
+        fields = ('id', 'type', 'description')

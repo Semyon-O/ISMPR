@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import status
 from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
@@ -18,11 +19,15 @@ class AuthWorkerView(CreateAPIView):
 
         authed_user = authenticate(username=username, password=password)
 
-        if authed_user is not None: #TODO: Добавить проверку на то что пользователь является работником
-            token_user = authed_user.auth_token
-
-            return Response({"message": "OK",
-                             "worker_id": authed_user.worker.id,
-                             "token": f"TOKEN {token_user}"})
-        else:
+        if authed_user is None:
             return Response({"message": "Error Authentication"}, status=status.HTTP_401_UNAUTHORIZED)
+
+        try:
+            worker_id = authed_user.worker.id
+            return Response({
+                "message": "OK",
+                "worker_id": worker_id,
+                "token": f"TOKEN {authed_user.auth_token}"
+            })
+        except ObjectDoesNotExist:
+            return Response({"message": "Worker does not exist"}, status=status.HTTP_404_NOT_FOUND)

@@ -3,48 +3,26 @@ from django.contrib.auth.models import User
 
 
 class Client(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="client")
-    Address = models.TextField()
-    Phone = models.CharField(max_length=12)
-
-
-# @receiver(post_save, sender=User)
-# def create_user_profile(sender, instance, created, **kwargs):
-#     if created:
-#         Client.objects.create(user=instance)
-#
-#
-# @receiver(post_save, sender=User)
-# def save_user_profile(sender, instance, **kwargs):
-#     instance.client.save()
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="client", verbose_name="Логин клиента")
+    Address = models.TextField(verbose_name="Адрес пользователя")
+    Phone = models.CharField(max_length=12, verbose_name="Телефон клиента")
 
 
 class TypeEquipment(models.Model):
-    type = models.CharField(max_length=50)
-    description = models.TextField()
+    type = models.CharField(max_length=50, verbose_name="тип оборудования")
+    description = models.TextField(verbose_name="Описание типа")
 
     def __str__(self):
         return f'{self.type.__str__()}'
 
 
 class ClientEquipment(models.Model):
-    client = models.ForeignKey(Client, on_delete=models.CASCADE)
-    Name = models.CharField(max_length=50)
-    typeEquipment = models.ForeignKey(TypeEquipment, on_delete=models.CASCADE)
-    Company = models.CharField(max_length=50)
-    Description = models.TextField()
+    client = models.ForeignKey(Client, on_delete=models.CASCADE, verbose_name="Клиент")
+    Name = models.CharField(max_length=50, verbose_name="Название оборудования")
+    typeEquipment = models.ForeignKey(TypeEquipment, on_delete=models.CASCADE, verbose_name="Тип оборудования")
+    Company = models.CharField(max_length=50, verbose_name="Компания выдавшая оборудование")
+    Description = models.TextField(verbose_name="Описание оборудования")
 
     def __str__(self):
-        return f"{self.pk}: {self.client.__str__()} - {self.Name.__str__()}"
-
-
-class WorkerStatus(models.Model):
-    status = models.CharField(max_length=50)
-
-
-class Worker(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="worker")
-    Phone = models.CharField(max_length=12)
-    workerStatus = models.ForeignKey(WorkerStatus, on_delete=models.CASCADE, related_name="worker")
-    Company = models.CharField(max_length=255)
+        return f"{self.pk}: {self.client} - {self.Name}"
 

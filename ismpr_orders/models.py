@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 import ismpr_worker.models as worker_models
 import ismpr_client.models as client_models
@@ -28,27 +29,25 @@ class TypeService(models.Model):
 class ClientOrders(models.Model):
     clientEquipment = models.ForeignKey(client_models.ClientEquipment,
                                         on_delete=models.CASCADE,
-                                        related_name='ClientOrder',
                                         verbose_name='Оборудование клиента')
 
     typeService = models.ForeignKey(TypeService,
                                     on_delete=models.CASCADE,
-                                    related_name='ClientOrder',
                                     verbose_name='Тип сервиса')
 
     client = models.ForeignKey(client_models.Client,
                                on_delete=models.CASCADE,
-                               related_name='ClientOrder',
                                verbose_name='Клиент')
 
     worker = models.ForeignKey(worker_models.Worker,
                                on_delete=models.CASCADE,
-                               related_name='ClientOrder',
-                               verbose_name='Работник принявший заявку')
+                               verbose_name='Работник принявший заявку',
+                               blank=True,
+                               null=True
+                               )
 
     orderStatus = models.ForeignKey(OrderStatus,
                                     on_delete=models.CASCADE,
-                                    related_name='ClientOrder',
                                     verbose_name='Текущий статус заявки')
 
     DateOrder = models.DateField(verbose_name='Дата выполнения заявки')
@@ -56,3 +55,13 @@ class ClientOrders(models.Model):
     class Meta:
         verbose_name = 'Заявка клиента'
         verbose_name_plural = 'Заявки клиентов'
+
+
+class RejectedOrders(models.Model):
+    ReasonDescription = models.TextField(max_length=255, verbose_name="Причина отклонения")
+    whoRejected = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Пользователь отменивший заявку")
+    InfoOrder = models.TextField(null=True, blank=True)
+
+    class Meta:
+        verbose_name = 'Отмененная заявка клиента'
+        verbose_name_plural = 'Отмененные заявки клиентов'
