@@ -60,7 +60,7 @@ class ClientOrders(models.Model):
 class RejectedOrders(models.Model):
     ReasonDescription = models.TextField(max_length=255, verbose_name="Причина отклонения")
     whoRejected = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Пользователь отменивший заявку")
-    InfoOrder = models.TextField(null=True, blank=True)
+    InfoOrder = models.TextField(null=True, blank=True, verbose_name="Информация о Заявке")
 
     class Meta:
         verbose_name = 'Отмененная заявка клиента'

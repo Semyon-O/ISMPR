@@ -15,7 +15,6 @@ class ClientOrdersAdmin(admin.ModelAdmin):
         if request.user.is_authenticated:
             if request.user.is_superuser:
                 return orders
-
             try:
                 worker = Worker.objects.get(user=request.user)
                 return orders.filter(worker=worker)

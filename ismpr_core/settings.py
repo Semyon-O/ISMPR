@@ -29,10 +29,16 @@ DEBUG = True
 #     "192.168.0.105"
 # ]
 
+JAZZMIN_SETTINGS = {
+    "site_title": "РемонтCOM",
+    "site_header": "РемонтКОМ",
+    "site_brand": "РКОМ",
+}
 
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
