@@ -6,6 +6,7 @@ import ismpr_client.models as client_models
 
 class OrderStatus(models.Model):
     name = models.CharField(max_length=50, verbose_name='Наименование статуса')
+    isActiveStatus = models.BooleanField(verbose_name="Активный?", null=True)
 
     class Meta:
         verbose_name = 'Статус заявки'

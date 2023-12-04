@@ -10,7 +10,9 @@ from .models import ClientEquipment, TypeEquipment
 from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
 
-from .serializers import UserSerializer, AuthUserSerializer, ClientEquipmentSerializer, TypeEquipmentSerializer
+from .serializers import (UserSerializer, AuthUserSerializer,
+                          ClientShowEquipmentSerializer,
+                          TypeEquipmentSerializer, ClientEquipmentSerializer)
 
 
 class RegisterNewUserView(CreateAPIView):
@@ -35,8 +37,8 @@ class AuthUserView(CreateAPIView):
         try:
             client_id = authed_user.client.id
             return Response({
-                "client_id": client_id,
-                "token": f"TOKEN {authed_user.auth_token}"
+                    "client_id": client_id,
+                    "token": f"TOKEN {authed_user.auth_token}"
             })
         except ObjectDoesNotExist:
             return Response({"message": "Client does not exist"}, status=status.HTTP_404_NOT_FOUND)
@@ -44,9 +46,13 @@ class AuthUserView(CreateAPIView):
 
 class EquipmentClientViewSet(ModelViewSet):
     queryset = ClientEquipment.objects.all()
-    serializer_class = ClientEquipmentSerializer
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
+
+    def get_serializer_class(self):
+        if self.action == 'create' or self.action == 'update':
+            return ClientEquipmentSerializer
+        return ClientShowEquipmentSerializer
 
     def perform_create(self, serializer):
         serializer.save(client=self.request.user.client)

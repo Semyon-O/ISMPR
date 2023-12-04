@@ -25,9 +25,10 @@ SECRET_KEY = 'django-insecure-d0r)=(lu18!#5i^5r&ej2@%k#k+(8&t&6j3*vq0)hjt!^b9d$)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# ALLOWED_HOSTS = [
-#     "192.168.0.105"
-# ]
+ALLOWED_HOSTS = [
+    "192.168.0.105",
+    "127.0.0.1"
+]
 
 JAZZMIN_SETTINGS = {
     "site_title": "РемонтCOM",
@@ -47,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
+    'django_filters',
 
     'ismpr_client',
     'ismpr_worker',

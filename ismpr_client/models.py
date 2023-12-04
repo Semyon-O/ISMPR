@@ -14,6 +14,9 @@ class Client(models.Model):
     def __str__(self):
         return f'{self.user.__str__()}'
 
+    def __str__(self):
+        return f"{self.user.__str__()}"
+
 
 class TypeEquipment(models.Model):
     type = models.CharField(max_length=50, verbose_name="тип оборудования")

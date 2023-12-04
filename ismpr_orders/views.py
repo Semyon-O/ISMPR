@@ -2,7 +2,7 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
-from .serializers import OrderSerializer, OrderStatusSerializer, TypeServiceSerializer
+from .serializers import OrderSerializerInfo, OrderStatusSerializer, TypeServiceSerializer, OrderSerializerUpdateCreate
 from .models import ClientOrders, OrderStatus, TypeService, RejectedOrders
 
 from ismpr_client.models import Client
@@ -10,9 +10,17 @@ from ismpr_client.models import Client
 
 class OrderViewSet(ModelViewSet):
     queryset = ClientOrders.objects.all()
-    serializer_class = OrderSerializer
+    serializer_class = OrderSerializerInfo
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return ClientOrders.objects.all().filter(client=self.request.user.client)
+
+    def get_serializer_class(self):
+        if self.action == 'create' or self.action == 'update':
+            return OrderSerializerUpdateCreate
+        return OrderSerializerInfo
 
     def perform_create(self, serializer):
         client: Client = self.request.user.client
@@ -29,11 +37,22 @@ class OrderViewSet(ModelViewSet):
         instance.delete()
 
 
+class ActiveClientOrders(generics.ListAPIView):
+    queryset = ClientOrders.objects.all()
+    serializer_class = OrderSerializerInfo
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        all_orders = ClientOrders.objects.all().filter(client=self.request.user.client)
+        return all_orders.filter(orderStatus__isActiveStatus=True)
+
+
 class TypeServiceView(generics.ListAPIView):
-    queryset = OrderStatus.objects.all()
-    serializer_class = OrderStatusSerializer
+    queryset = TypeService.objects.all()
+    serializer_class = TypeServiceSerializer
 
 
 class OrderStatusView(generics.ListAPIView):
-    queryset = TypeService.objects.all()
-    serializer_class = TypeServiceSerializer
+    queryset = OrderStatus.objects.all()
+    serializer_class = OrderStatusSerializer

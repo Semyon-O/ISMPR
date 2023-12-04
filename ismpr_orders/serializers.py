@@ -1,8 +1,26 @@
 from rest_framework import serializers
 from .models import ClientOrders, OrderStatus, TypeService
+from ismpr_client.serializers import ClientShowEquipmentSerializer
+from ismpr_worker.serializers import WorkerBaseSerializers
 
 
-class OrderSerializer(serializers.ModelSerializer):
+class TypeServiceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TypeService
+        fields = ('id', 'name')
+
+
+class OrderStatusSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OrderStatus
+        fields = ('id', 'name')
+
+
+class OrderSerializerInfo(serializers.ModelSerializer):
+    clientEquipment = ClientShowEquipmentSerializer()
+    typeService = TypeServiceSerializer()
+    orderStatus = OrderStatusSerializer()
+    worker = WorkerBaseSerializers()
 
     class Meta:
         model = ClientOrders
@@ -18,13 +36,7 @@ class OrderSerializer(serializers.ModelSerializer):
         return data
 
 
-class TypeServiceSerializer(serializers.ModelSerializer):
+class OrderSerializerUpdateCreate(serializers.ModelSerializer):
     class Meta:
-        model = TypeService
-        fields = ('id', 'name')
-
-
-class OrderStatusSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = OrderStatus
-        fields = ('id', 'name')
+        model = ClientOrders
+        fields = ('id', 'clientEquipment', 'typeService', 'client', 'worker', 'orderStatus', 'DateOrder')

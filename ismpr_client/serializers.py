@@ -27,15 +27,23 @@ class AuthUserSerializer(serializers.ModelSerializer):
         fields = ('username', 'password')
 
 
-class ClientEquipmentSerializer(serializers.ModelSerializer):
+class TypeEquipmentSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = TypeEquipment
+        fields = ('id', 'type', 'description')
+
+
+class ClientShowEquipmentSerializer(serializers.ModelSerializer):
+    typeEquipment = TypeEquipmentSerializer()
 
     class Meta:
         model = ClientEquipment
         fields = ('id', 'Name', 'typeEquipment', 'Company', 'Description')
 
 
-class TypeEquipmentSerializer(serializers.ModelSerializer):
+class ClientEquipmentSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = TypeEquipment
-        fields = ('id', 'type', 'description')
+        model = ClientEquipment
+        fields = ('id', 'Name', 'typeEquipment', 'Company', 'Description')
