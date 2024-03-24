@@ -48,11 +48,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
-    'django_filters',
+    # 'django_filters',
 
     'ismpr_client',
     'ismpr_worker',
-    'ismpr_orders'
+    'ismpr_orders',
+    'ismpr_store',
 ]
 
 MIDDLEWARE = [
