@@ -38,7 +38,10 @@ class AuthUserView(CreateAPIView):
             client_id = authed_user.client.id
             return Response({
                     "client_id": client_id,
-                    "token": f"TOKEN {authed_user.auth_token}"
+                    "token": f"TOKEN {authed_user.auth_token}",
+                    "first_name": authed_user.first_name,
+                    "last_name": authed_user.last_name,
+                    'email': authed_user.email,
             })
         except ObjectDoesNotExist:
             return Response({"message": "Client does not exist"}, status=status.HTTP_404_NOT_FOUND)

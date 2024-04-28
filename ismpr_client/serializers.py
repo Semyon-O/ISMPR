@@ -13,6 +13,7 @@ class UserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         password = validated_data.pop("password")
         new_user: User = User(**validated_data)
+        print(validated_data)
         new_user.set_password(password)
         new_user.save()
         Client.objects.create(user=new_user)

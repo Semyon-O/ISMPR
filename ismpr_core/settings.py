@@ -27,11 +27,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     "192.168.0.105",
-    "127.0.0.1"
+    "127.0.0.1",
+    "94.19.74.144",
 ]
 
 JAZZMIN_SETTINGS = {
-    "site_title": "РемонтCOM",
+    "site_title": "РемонтКOM",
     "site_header": "РемонтКОМ",
     "site_brand": "РКОМ",
 }

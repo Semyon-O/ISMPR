@@ -6,8 +6,8 @@ from .models import OrderStatus, ClientOrders, TypeService, RejectedOrders
 
 @admin.register(ClientOrders)
 class ClientOrdersAdmin(admin.ModelAdmin):
-    list_display = ['id', 'clientEquipment', 'typeService', 'client', 'worker', 'orderStatus', 'DateOrder']
-    list_editable = ['worker', 'orderStatus']
+    list_display = ['id', 'clientEquipment', 'typeService', 'client', 'worker', 'orderStatus', 'DateOrder', 'problemDescription']
+    list_editable = ['worker', 'orderStatus', 'DateOrder', 'problemDescription']
     list_filter = ['worker']
 
     def get_queryset(self, request):
