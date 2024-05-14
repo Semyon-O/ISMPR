@@ -14,12 +14,6 @@ from .serializers import (UserSerializer, AuthUserSerializer,
                           ClientShowEquipmentSerializer,
                           TypeEquipmentSerializer, ClientEquipmentSerializer)
 
-from django.http import HttpResponse
-
-
-def start_page(request):
-
-    return HttpResponse("Здравствуйте, многоуважаемые ребята группы Н11")
 
 
 class RegisterNewUserView(CreateAPIView):
