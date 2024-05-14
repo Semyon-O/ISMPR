@@ -3,7 +3,8 @@ from rest_framework.routers import DefaultRouter
 
 from .views import (
     OrderViewSet, TypeServiceView, OrderStatusView,
-    ActiveClientOrders, WorkerOrdersViewSet, WorkerActiveOrder, WorkerHistoryOrders, WorkerTodayOrders, OrderInfoView
+    ActiveClientOrders, WorkerOrdersViewSet, WorkerActiveOrder, WorkerHistoryOrders, WorkerTodayOrders, OrderInfoView,
+    FeedbackView
 
 )
 
@@ -19,5 +20,7 @@ orders_urlpatterns = [
 
     path('orders-worker/active/', WorkerActiveOrder.as_view()),
     path('orders-worker/history/', WorkerHistoryOrders.as_view()),
-    path('orders-worker/today/', WorkerTodayOrders.as_view())
+    path('orders-worker/today/', WorkerTodayOrders.as_view()),
+
+    path('orders/feedback/', FeedbackView.as_view())
 ] + r.urls

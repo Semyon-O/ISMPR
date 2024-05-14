@@ -68,3 +68,9 @@ class RejectedOrders(models.Model):
     class Meta:
         verbose_name = 'Отмененная заявка клиента'
         verbose_name_plural = 'Отмененные заявки клиентов'
+
+
+class Feedback(models.Model):
+    FeedbackDescription = models.TextField(max_length=500, verbose_name="Комментарии", null=True)
+    order = models.ForeignKey(ClientOrders, on_delete=models.CASCADE, verbose_name="Номер заявки")
+    Score = models.IntegerField(max_length=5, verbose_name="Оценка")

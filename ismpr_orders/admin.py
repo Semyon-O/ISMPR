@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from ismpr_worker.models import Worker
-from .models import OrderStatus, ClientOrders, TypeService, RejectedOrders
+from .models import OrderStatus, ClientOrders, TypeService, RejectedOrders, Feedback
 
 
 @admin.register(ClientOrders)
@@ -39,3 +39,6 @@ class TypeServiceAdmin(admin.ModelAdmin):
 @admin.register(RejectedOrders)
 class RejectedOrders(admin.ModelAdmin):
     list_display = ['id', 'whoRejected', 'ReasonDescription', 'InfoOrder']
+
+
+admin.site.register(Feedback)
