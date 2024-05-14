@@ -25,9 +25,12 @@ class AuthWorkerView(CreateAPIView):
         try:
             worker_id = authed_user.worker.id
             return Response({
-                "message": "OK",
                 "worker_id": worker_id,
-                "token": f"TOKEN {authed_user.auth_token}"
+                "firstName": authed_user.first_name,
+                "lastName": authed_user.last_name,
+                "email": authed_user.email,
+                "token": f"Token {authed_user.auth_token}",
+
             })
         except ObjectDoesNotExist:
             return Response({"message": "Worker does not exist"}, status=status.HTTP_404_NOT_FOUND)

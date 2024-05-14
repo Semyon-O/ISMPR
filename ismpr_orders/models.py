@@ -53,16 +53,24 @@ class ClientOrders(models.Model):
 
     DateOrder = models.DateField(verbose_name='Дата выполнения заявки')
 
+    problemDescription = models.TextField(verbose_name='Описание проблемы', null=True, blank=True)
+
     class Meta:
         verbose_name = 'Заявка клиента'
         verbose_name_plural = 'Заявки клиентов'
 
 
 class RejectedOrders(models.Model):
-    ReasonDescription = models.TextField(max_length=255, verbose_name="Причина отклонения")
+    ReasonDescription = models.TextField(max_length=255, verbose_name="Причина отклонения", null=True)
     whoRejected = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Пользователь отменивший заявку")
     InfoOrder = models.TextField(null=True, blank=True, verbose_name="Информация о Заявке")
 
     class Meta:
         verbose_name = 'Отмененная заявка клиента'
         verbose_name_plural = 'Отмененные заявки клиентов'
+
+
+class Feedback(models.Model):
+    FeedbackDescription = models.TextField(max_length=500, verbose_name="Комментарии", null=True)
+    order = models.ForeignKey(ClientOrders, on_delete=models.CASCADE, verbose_name="Номер заявки")
+    Score = models.IntegerField(max_length=5, verbose_name="Оценка")

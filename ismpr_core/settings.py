@@ -27,11 +27,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     "192.168.0.105",
-    "127.0.0.1"
+    "127.0.0.1",
+    "94.19.74.144",
 ]
 
 JAZZMIN_SETTINGS = {
-    "site_title": "РемонтCOM",
+    "site_title": "РемонтКOM",
     "site_header": "РемонтКОМ",
     "site_brand": "РКОМ",
 }
@@ -52,7 +53,8 @@ INSTALLED_APPS = [
 
     'ismpr_client',
     'ismpr_worker',
-    'ismpr_orders'
+    'ismpr_orders',
+    'ismpr_store',
 ]
 
 MIDDLEWARE = [
@@ -119,7 +121,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'UTC'
 

@@ -1,13 +1,13 @@
 from django.contrib import admin
 
 from ismpr_worker.models import Worker
-from .models import OrderStatus, ClientOrders, TypeService, RejectedOrders
+from .models import OrderStatus, ClientOrders, TypeService, RejectedOrders, Feedback
 
 
 @admin.register(ClientOrders)
 class ClientOrdersAdmin(admin.ModelAdmin):
-    list_display = ['id', 'clientEquipment', 'typeService', 'client', 'worker', 'orderStatus', 'DateOrder']
-    list_editable = ['worker', 'orderStatus']
+    list_display = ['id', 'clientEquipment', 'typeService', 'client', 'worker', 'orderStatus', 'DateOrder', 'problemDescription']
+    list_editable = ['worker', 'orderStatus', 'DateOrder', 'problemDescription']
     list_filter = ['worker']
 
     def get_queryset(self, request):
@@ -39,3 +39,6 @@ class TypeServiceAdmin(admin.ModelAdmin):
 @admin.register(RejectedOrders)
 class RejectedOrders(admin.ModelAdmin):
     list_display = ['id', 'whoRejected', 'ReasonDescription', 'InfoOrder']
+
+
+admin.site.register(Feedback)
