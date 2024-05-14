@@ -11,8 +11,6 @@ from ismpr_orders.serializers import worker_serializers
 from ismpr_client.models import Client
 from .serializers.feedback_serializer import FeedbackSerializer
 
-from .filters import OrderFilter
-
 class OrderViewSet(ModelViewSet):
     queryset = ClientOrders.objects.all()
     serializer_class = OrderSerializerInfo
