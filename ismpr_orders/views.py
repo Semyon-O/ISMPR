@@ -9,6 +9,12 @@ from ismpr_client.models import Client
 
 
 class OrderViewSet(ModelViewSet):
+
+    """
+    Данные API позволяют управлять заявками от лица пользователя.
+    Требуется токен.
+    """
+
     queryset = ClientOrders.objects.all()
     serializer_class = OrderSerializerInfo
     authentication_classes = [TokenAuthentication]
@@ -38,6 +44,11 @@ class OrderViewSet(ModelViewSet):
 
 
 class ActiveClientOrders(generics.ListAPIView):
+
+    """
+    Возвращает список активных заявок для работников.
+    """
+
     queryset = ClientOrders.objects.all()
     serializer_class = OrderSerializerInfo
     authentication_classes = [TokenAuthentication]
@@ -49,10 +60,20 @@ class ActiveClientOrders(generics.ListAPIView):
 
 
 class TypeServiceView(generics.ListAPIView):
+
+    """
+    Возвращает список типов
+    """
+
     queryset = TypeService.objects.all()
     serializer_class = TypeServiceSerializer
 
 
 class OrderStatusView(generics.ListAPIView):
+
+    """
+    Возвращает список статусов
+    """
+
     queryset = OrderStatus.objects.all()
     serializer_class = OrderStatusSerializer
