@@ -47,7 +47,5 @@ urlpatterns = [
     path('client/', include(user_urlpatterns)),
     path('worker/', include(worker_urlpatterns)),
     path('', include(orders_urlpatterns)),
-
-
     path('store', include(store_urlpatterns))
 ]
