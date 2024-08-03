@@ -19,6 +19,7 @@ from django.urls import path, include
 from rest_framework import permissions
 
 from ismpr_client.urls import user_urlpatterns
+from ismpr_client.views import start_page
 from ismpr_store.urls import store_urlpatterns
 from ismpr_worker.urls import worker_urlpatterns
 from ismpr_orders.urls import orders_urlpatterns
@@ -46,7 +47,9 @@ urlpatterns = [
 
     path('client/', include(user_urlpatterns)),
     path('worker/', include(worker_urlpatterns)),
-    path('', include(orders_urlpatterns)),
+    # path('', include(orders_urlpatterns)),
+    path("", start_page),
+
 
     path('store', include(store_urlpatterns))
 ]
