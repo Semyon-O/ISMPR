@@ -27,7 +27,7 @@ source venv/bin/activate (Unix)
 ```
 pip install -r requirements.txt
 ```
-- Миграция базы даных (по умолчанию поставлено sqlite)
+- Миграция базы даных
 ```
 python manage.py makemigrations
 python manage.py migrate
@@ -37,6 +37,20 @@ python manage.py migrate
 python manage.py runserver
 ```
 
+## Запуск через Docker
+1. Скачивание
+Скачайте репозиторий
+``` git
+git clone https://github.com/Semyon-O/ISMPR.git
+```
+2. Запустите создание образа
+```docker
+docker build -t ismpr .
+```
+3. Запустите контейнер на основе образа. (Убедитесь, что на порту 8000, ничего не запущено)
+```
+ docker run -p 8000:8000 ismpr
+```
 ## Превью
 ![image](https://github.com/user-attachments/assets/864838e9-f2e0-4cb7-b764-2c3c83ba1cb2)
 ![image](https://github.com/user-attachments/assets/f19218a8-50e9-49a6-9ffe-6cbf91d947f4)
